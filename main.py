@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_community.retrievers import PineconeHybridSearchRetriever
 from langchain_groq import ChatGroq
+from langchain.prompts import PromptTemplate
 from langchain_classic.chains import RetrievalQA
 from embeddings import get_embeddings, get_pinecone_index
 from sparse import load_bm25
@@ -29,11 +30,33 @@ def initialize():
         groq_api_key=st.secrets["GROQ_API_KEY"],
         temperature=0
     )
+    prompt_template = """
+                    You are a strict question-answering assistant.
+                    Rules:
+                    1. Answer ONLY using the provided context.
+                    2. If the answer is NOT present in the context, say:
+                       "I don't know based on the provided document."
+                    3. Do NOT use your own knowledge.
+                    4. Do NOT guess or make up answers.
+                    Context:
+                    {context}
+                    
+                    Question:
+                    {question}
+                    
+                    Answer:
+                    """
+
+    PROMPT = PromptTemplate(
+        template=prompt_template,
+        input_variables=["context", "question"]
+    )
     rag_chain = RetrievalQA.from_chain_type(
         llm=llm,
         chain_type="stuff",
         retriever=retriever,
-        return_source_documents=True 
+        return_source_documents=True,
+        chain_type_kwargs={"prompt": PROMPT}
     )
     return rag_chain
 rag_chain = initialize()
@@ -55,7 +78,7 @@ for item in st.session_state.history:
     role, msg = item
 
     if role == "You":
-        st.markdown(f"** {role}:** {msg}")
+        st.markdown(f"**{role}:** {msg}")
 
     elif role == "Bot":
         st.markdown(f"**{role}:** {msg}")
