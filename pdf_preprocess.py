@@ -23,7 +23,7 @@ def save_documents(documents, file_path="documents.json"):
     for doc in documents:
         data.append({
             "page_content": doc.page_content,
-            "metadata": doc.metadata
+            "page_no": doc.metadata.get("page", i)# i is fallback value
         })
     
     with open(file_path, "w", encoding="utf-8") as f:
