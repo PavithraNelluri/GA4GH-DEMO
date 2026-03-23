@@ -19,6 +19,15 @@ retriever = PineconeHybridSearchRetriever(
     embeddings=get_embeddings(),
     sparse_encoder=bm25,
     index=get_pinecone_index(),
-    text_key="page_content"
+    text_key="text"
 )
-retriever.add_texts(corpus)
+retriever.add_texts(
+    corpus,
+    metadatas=[
+        {
+            "text": doc.page_content, 
+            "page_no": getattr(doc, "page_no", i)  
+        }
+        for i, doc in enumerate(documents)
+    ]
+)
