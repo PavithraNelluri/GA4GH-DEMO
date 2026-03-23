@@ -36,8 +36,7 @@ def initialize():
                     1. Answer ONLY using the provided context.
                     2. If the answer is NOT present in the context, say:
                        "I don't know based on the provided document."
-                    3. Do NOT use your own knowledge.
-                    4. Do NOT guess or make up answers.
+                    3. Do NOT guess or make up answers.
                     Context:
                     {context}
                     
