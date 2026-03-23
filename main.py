@@ -73,7 +73,7 @@ query = st.chat_input("Ask your question...")
 if query:
     with st.spinner("Thinking... "):
         response = rag_chain.invoke(query)
-        answer = response["result"]
+        answer = response["answer"]
         sources = response.get("source_documents", [])
         st.session_state.history.append(("You", query))
         st.session_state.history.append(("Bot", answer))
