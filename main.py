@@ -33,10 +33,9 @@ def initialize():
     prompt_template = """
                     You are a strict question-answering assistant.
                     Rules:
-                    1. Answer ONLY using the provided context.
-                    2. If the answer is NOT present in the context, say:
-                       "I don't know based on the provided document."
-                    3. Do NOT guess or make up answers.
+                    1. If the question is irrelevant to the context OR the answer is not found, respond EXACTLY:
+                       "I have knowledge only related to the first 3 pages of the GA4GH Framework document. Please ask questions based on it."
+                    2. Do NOT guess or make up answers.
                     Context:
                     {context}
                     
