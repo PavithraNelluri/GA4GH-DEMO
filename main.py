@@ -5,8 +5,8 @@ from langchain_community.retrievers import PineconeHybridSearchRetriever
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_classic.chains import RetrievalQA
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
+from langchain_classic.chains import ConversationalRetrievalChain
+from langchain_classic.memory import ConversationBufferMemory
 from embeddings import get_embeddings, get_pinecone_index
 from sparse import load_bm25
 
