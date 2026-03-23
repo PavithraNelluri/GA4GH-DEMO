@@ -26,7 +26,7 @@ def initialize():
     )
     llm = ChatGroq(
         model="llama-3.1-8b-instant",
-        groq_api_key=os.getenv("GROQ_API_KEY"),
+        groq_api_key=st.secrets["GROQ_API_KEY"],
         temperature=0
     )
     rag_chain = RetrievalQA.from_chain_type(
