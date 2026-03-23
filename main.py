@@ -22,7 +22,7 @@ def initialize():
         embeddings=embeddings,
         sparse_encoder=bm25,
         index=index,
-        text_key="text",
+        text_key="page_content",
         alpha=0.7
     )
     llm = ChatGroq(
