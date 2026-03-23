@@ -19,6 +19,6 @@ retriever = PineconeHybridSearchRetriever(
     embeddings=get_embeddings(),
     sparse_encoder=bm25,
     index=get_pinecone_index(),
-    text_key="text"
+    text_key="page_content"
 )
 retriever.add_texts(corpus)
