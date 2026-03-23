@@ -5,14 +5,14 @@ from pinecone_text.sparse import BM25Encoder
 from pdf_preprocess import load_documents
 
 # Prepare corpus
-documents = load_documents("documents.json")
+documents = load_documents("GA4GH-DEMO/documents.json")
 corpus = [doc.page_content for doc in documents]
 
 #1.Save BM25
 create_and_save_bm25(corpus)
 
 #2.Load BM25
-bm25 = BM25Encoder().load("bm25_values.json")
+bm25 = BM25Encoder().load("GA4GH-DEMO/bm25_values.json")
 
 #3.Setup retriever
 retriever = PineconeHybridSearchRetriever(
