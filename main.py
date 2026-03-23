@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv
 from langchain_community.retrievers import PineconeHybridSearchRetriever
 from langchain_groq import ChatGroq
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_classic.chains import RetrievalQA
 from embeddings import get_embeddings, get_pinecone_index
 from sparse import load_bm25
