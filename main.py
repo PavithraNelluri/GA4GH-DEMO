@@ -5,6 +5,8 @@ from langchain_community.retrievers import PineconeHybridSearchRetriever
 from langchain_groq import ChatGroq
 from langchain_core.prompts import PromptTemplate
 from langchain_classic.chains import RetrievalQA
+from langchain.chains import ConversationalRetrievalChain
+from langchain.memory import ConversationBufferMemory
 from embeddings import get_embeddings, get_pinecone_index
 from sparse import load_bm25
 
@@ -49,16 +51,20 @@ def initialize():
         template=prompt_template,
         input_variables=["context", "question"]
     )
-    rag_chain = RetrievalQA.from_chain_type(
+     memory = ConversationBufferMemory(
+        memory_key="chat_history",
+        return_messages=True
+    )
+
+    rag_chain = ConversationalRetrievalChain.from_llm(
         llm=llm,
-        chain_type="stuff",
         retriever=retriever,
-        return_source_documents=True,
-        chain_type_kwargs={"prompt": PROMPT}
+        memory=memory,
+        combine_docs_chain_kwargs={"prompt": PROMPT}
     )
     return rag_chain
 rag_chain = initialize()
-
+   
 if "history" not in st.session_state:
     st.session_state.history = []
 
