@@ -41,9 +41,11 @@ rag_chain = initialize()
 if "history" not in st.session_state:
     st.session_state.history = []
 
-query = st.text_input("Ask your question:")
-
-if st.button("Ask") and query:
+with st.form("qa_form"):
+    query = st.text_input("Ask your question:", key="query")
+    submitted = st.form_submit_button("Ask")
+    
+if submitted and query:
     with st.spinner("Thinking... "):
         response = rag_chain.invoke(query)
         answer = response["result"]
