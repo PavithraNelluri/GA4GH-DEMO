@@ -51,7 +51,7 @@ def initialize():
         template=prompt_template,
         input_variables=["context", "question"]
     )
-     memory = ConversationBufferMemory(
+    memory = ConversationBufferMemory(
         memory_key="chat_history",
         return_messages=True
     )
